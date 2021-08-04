@@ -1,4 +1,4 @@
-# CS 249r: Wake Words
+# Lab2: Wake Words
 
 At the end of this assignment you should have designed a data collection and testing scheme and collected your own speech dataset and used it to train a model to differentiate between 2-4 different words of your choice in your particular environment/setting.
 
