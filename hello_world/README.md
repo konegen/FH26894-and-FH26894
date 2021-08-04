@@ -1,4 +1,4 @@
-# CS 249r: Hello World
+# Lab1: Hello World
 
 
 ## Learning objectives
