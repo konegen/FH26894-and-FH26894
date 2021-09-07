@@ -119,7 +119,7 @@ Note for Ubuntu/Linux users: If you are able to open the serial monitor and conn
 **If you are having a lot of trouble with this please contact the course staff. Also please try the Arduino IDE flow at the end of this document before contacting the course staff to help us diagnose the problem.**
 
 ## Training a model
-Now lets try to train the model to learn different words. For this we are going to use the Google Colab found on this [GitRepo](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/lite/micro/examples/micro_speech/train/train_micro_speech_model.ipynb). Note that the file changed from what is written in the book! Simply click the ```Run in Google Colab``` link and note that the link to click for Colab will still appear in Colab so check the URL and don't keep infinitely clicking!
+Now lets try to train the model to learn different words. For this we are going to use the Google Colab found on this [GitRepo](https://github.com/tensorflow/tflite-micro/blob/main/tensorflow/lite/micro/examples/micro_speech/train_speech_model.ipynb). Note that the file changed from what is written in the book! Simply click the ```Run in Google Colab``` link and note that the link to click for Colab will still appear in Colab so check the URL and don't keep infinitely clicking!
 ![](media/ColabLink.png)
 
 1. First make sure you are set to use the GPU for training (this will save HOURS!). Note: in many cases this is enabled by default but it's always worth checking! Click through the drop-down menus:
