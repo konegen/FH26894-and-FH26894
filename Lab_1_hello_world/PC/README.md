@@ -1,98 +1,282 @@
-# Lab1: Hello World
+---
+Order: 2
+Area: datascience
+TOCTitle: Jupyter Notebooks
+ContentId: 17345073-cb40-448c-a312-28982900f132
+PageTitle: Working with Jupyter Notebooks in Visual Studio Code
+DateApproved: 7/22/2021
+MetaDescription: Working with Jupyter Notebooks in Visual Studio Code.
+MetaSocialImage: images/tutorial/social.png
+---
 
+# Jupyter Notebooks in VS Code
 
-## Learning objectives
+[Jupyter](https://jupyter-notebook.readthedocs.io/en/latest/) (formerly IPython Notebook) is an open-source project that lets you easily combine Markdown text and executable Python source code on one canvas called a **notebook**. Visual Studio Code supports working with Jupyter Notebooks natively, and through [Python code files](/docs/python/jupyter-support-py.md). This topic covers the native support available for Jupyter Notebooks and demonstrates how to:
 
-* Get familiar with the development environment (VSCode + PlatformIO) that we recommend for use throughout this course
-* Deploy your first Tensorflow Lite for Microcontrollers model on your Arduino Nano 33 BLE Sense
+- Create, open, and save Jupyter Notebooks
+- Work with Jupyter code cells
+- View, inspect, and filter variables using the Variable Explorer and Data Viewer
+- Connect to a remote Jupyter server
+- Debug a Jupyter Notebook
 
-## Relevant chapters
+## Setting up your environment
 
-* Chapters 4 - 6
+To work with Python in Jupyter Notebooks, you must activate an Anaconda environment in VS Code, or another Python environment in which you've installed the [Jupyter package](https://pypi.org/project/jupyter/). To select an environment, use the **Python: Select Interpreter** command from the Command Palette (`kb(workbench.action.showCommands)`).
 
-## Prerequisites
+Once the appropriate environment is activated, you can create and open a Jupyter Notebook, connect to a remote Jupyter server for running code cells, and export a Jupyter Notebook as a Python file.
 
-* Install the latest version  of the [Arduino IDE](https://www.arduino.cc/en/main/software) (> v1.8.13 for compatability) [!]
-* Install the latest version of [Visual Studio Code](https://code.visualstudio.com/) 
+## Workspace Trust
 
-## Getting setup
+When getting started with Notebooks, you'll want to make sure that you are working in a trusted workspace. Harmful code can be embedded in notebooks and the [Workspace Trust](/docs/editor/workspace-trust.md) feature allows you to indicate which folders and their contents should allow or restrict automatic code execution.
 
-The recommended IDE for this course is [PlatformIO](https://platformio.org/), which is an extension of Visual Studio Code (VSCode) intended for development of embedded systems, with intelligent support C/C++ languages. To install it, open VSCode and click on the Extensions tab on the VSCode sidebar on the left-hand side of the window: 
+If you attempt to open a notebook when VS Code is in an untrusted workspace running [Restricted Mode](/docs/editor/workspace-trust.md#restricted-mode), you will not be able to execute cells and rich outputs will be hidden.
 
-![](media/extensions.PNG) 
+## Create or open a Jupyter Notebook
 
-Search for ```PlatformIO IDE``` under the Extensions header, select the corresponding result, and click on ```Install``` within the extension description panel that will have appeared on the right-hand side. 
+You can create a Jupyter Notebook by running the **Jupyter: Create Blank New Jupyter Notebook** command from the Command Palette (`kb(workbench.action.showCommands)`) or by creating a new `.ipynb` file in your workspace.
 
-Next, you will need to install the Arduino_TensorFlowLite library, which will enable you to run the ML models you develop in this course on your Arduino Nano 33 BLE Sense. To do so, open the Arduino IDE and click on the ```Tools``` drop down menu, selecting ```Manage Libraries...``` The Library Manager window will appear. Within it, enter ```Arduino_TensorFlowLite``` in the search filter on the top right. Select version ```2.1.0-ALPHA-precompiled``` from the corresponding drop down menu and then install the library. 
+![Blank Jupyter Notebook](images/jupyter/native-code-cells-01.png)
 
-Teal text will appear saying ```INSTALLED``` next to the library name to confirm succesful installation. Nice!
+Next, select a kernel using the kernel picker in the top right.
 
-## Assignment 
+![Kernel Picker](images/jupyter/native-kernel-picker.png)
 
-The ```Arduino_TensorFlowLite``` library you just installed carries with it several examples of pre-trained models. To get our feet wet, we'll be uploading the ```hello_world``` example shortly, which is trained to take an input `x` and estimate `sin(x)`. Enthralling, no? While this is admittedly a bit contrived, demonstrative examples of this nature are a good way to wrap your head around what's happening in an approachable application. Chapters 4 through 6 of the TinyML book (which I'm sure you -- yes you -- have already read) discuss this at length. If you haven't had an opportunity to read these chapters in advance, do so now. We don't want to bog this guide down with redudant perspectives or theory, as the purpose of this, and subsequent light-weight guides, is to facilitate practical, hands-on learning. However valuable, the practical guidance we provide here isn't intended to substitute the context and enrichment you have access to in the text and in lectures. Be the best you that you can be and practice diligence in completing readings alongside assignments.  
+After selecting a kernel, the language picker located in the bottom right of each code cell will automatically update to the language supported by the kernel.
 
-To keep things simple for now, we're going to deploy a pre-trained model and leave you the option of training your own later. To get started, you need to import the hello world example project from the Arduino library into PlatformIO. Navigate to the PlatformIO Home (which is kind of an odd concept, in that it lives nested within VSCode) by either selecting the ```Home``` icon on the top right of the PlatformIO sidebar within VSCode or, if the last option did not match what's in front of you, click on the PlatformIO icon on the VSCode sidebar, revealing a ```Quick Access``` panel on the bottom left wherein you can select PIO Home -> Open. 
+![Language Picker](images/jupyter/native-language-picker-01.png)
 
-![](media/piohome.png) 
+If you have an existing Jupyter Notebook, you can open it by right-clicking on the file and opening with VS Code, or through the VS Code File Explorer.
 
-The ```Quick Access``` buttons on the PlatformIO home allow will allow you to call on the library of interest or other arduino projects, by clicking on ```Import Arduino Project```. In the pop-up window that appears, search / select the ```Arduino Nano 33 BLE``` from the board selection drop down menu, **check the ```Use libraries installed by Arduino IDE``` box** and navigate to the default Arduino directory, which is typically within a Home or Documents folder, but could vary if you elected to configure the Arduino install differently. From there, navigate down to ```libraries/Arduino_TensorFlowLite/examples/hello_world```. 
+## Running cells
 
-Altogether, your ```Import Arduino Project``` pop-up window should look like this:
+Once you have a Notebook, you can run a code cell using the **Run** icon to the left of the cell and the output will appear directly below the code cell.
 
-![](media/PlatformIOImport.PNG)
+You can also use keyboard shortcuts to run code. When in command or edit mode, use `kbstyle(Ctrl+Enter)` to run the current cell or `kbstyle(Shift+Enter)` to run the current cell and advance to the next.
 
-If it does, click ```Import```. Nice!
+![Run Jupyter code cell](images/jupyter/native-code-cells-03.png)
 
-Importing an existing project in this way will create a PlatformIO project within its IDE workspace with the nomenclature YYMMDD-HHMMSS-nano33ble, capturing the timestamp for import.  If you'd like to rename your manifestation of the project something more intuitive, you can right click on the ```platformio.ini``` configuration file from within the project and select ```Reveal in Finder / File Explorer```. Once your file manager opens, close VSCode, and rename the folder as you would any other folder. Upen reopening VSCode, right click on the old project name and select ```Remove Folder from Workspace```. Finally, go to ```File -> Add Folder to Workspace``` and select the renamed folder. 
+You can run multiple cells by using **Run All**, **Run All Above**, or **Run All Below**.
 
-Plug in your Arduino Nano 33 BLE Sense board at this point, if you haven't already, and PlatformIO should recognize it automatically. 
+![Run Jupyter code cells](images/jupyter/native-code-runs.png)
 
-You can build or compile the sketch (jargon used to describe an Arduino program) by clicking the PlatformIO build button which is denoted by a check mark in the PlatformIO ribbon on the bottom left of the VSCode Window. You can also open the ```Project Tasks``` menu by clicking the the PlatformIO icon on the sidebar, then click ```Build```. 
+## Save your Jupyter Notebook
 
-Similarly, you can upload the sketch to the device by clicking the PlatformIO upload button which is denoted by a right-facing arrow in the PlatformIO ribbon in the bottom left of the VSCode Window. You can also open the ```Project Tasks``` menu by clicking the the PlatformIO icon on the sidebar, then click ```Upload```. Note that in uploading the sketch, you will compile the code, either from scratch or incorporating any changes you've made since your last compilation. 
+You can save your Jupyter Notebook using the keyboard shortcut `kbstyle(Ctrl+S)` or **File** > **Save**.
 
-Upload icon in ribbon:
+## Export your Jupyter Notebook
 
-![](media/PlatformIOUpload.png)
+You can export a Jupyter Notebook as a Python file (`.py`), a PDF, or an HTML file. To export, select the **Export** action on the main toolbar. You'll then be presented with a dropdown of file format options.
 
-PlatformIO sidebar icon:
+ ![Convert Jupyter Notebook to Python file](images/jupyter/native-toolbar-export.png)
 
-![](media/pio-icon.PNG)
+> **Note:** For PDF export, you must have [TeX installed](https://nbconvert.readthedocs.io/en/latest/install.html#installing-tex). If you don't, you will be notified that you need to install it when you select the PDF option. Also, be aware that if you have SVG-only output in your Notebook, they will not be displayed in the PDF. To have SVG graphics in a PDF, either ensure that your output includes a non-SVG image format or else you can first export to HTML and then save as PDF using your browser.
 
-Project tasks menu:
+## Work with code cells in the Notebook Editor
 
-![](media/ProjectTasks.PNG)
+The Notebook Editor makes it easy to create, edit, and run code cells within your Jupyter Notebook.
 
-You will likely see a number of warnings related to the TensorFlow library as it is compiling. These are normal and nothing to worry about. If you see any ```fatal error```s, however, check the Troubleshooting section below. When the upload finishes you should see the message ```Done in xx seconds``` in the PlatformIO terminal, which details all sorts of activity, especially during compilation and upload.  
+### Create a code cell
 
-If everything was successful, the yellow LED next to the microUSB port on the Nano board should begin pulsating sinusoidally, saying hello to the world, as it were. You can also check the current brightness setting of the LED by opening the ```Serial Monitor```, either by clicking the electrical plug icon in the VSCode ribbon (pictured below), or by clicking ```Monitor``` in the ```Project Tasks``` menu, described above. 
+By default, a blank Notebook will have an empty code cell for you to start with.
 
-![](media/PlatformIOSerialMonitor.png)
+```python
+msg = "Hello world"
+print(msg)
+```
 
-Congratulations, you've just deployed your first TinyML model! 
+![Simple Jupyter code cell](images/jupyter/native-code-cells-02.png)
 
-Wow, that wasn't so bad, was it?
+### Code cell modes
 
-### Optional Extension
+While working with code cells, a cell can be in three states: unselected, command mode, and edit mode. The current state of a cell is indicated by a vertical bar to the left of a code cell and editor border. When no bar is visible, the cell is unselected.
 
-If you're interested in taking a closer look at how this model was trained, converted to a TFLite model, and quantized for deployment on a microcontroller, check out this [GitRepo](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/lite/micro/examples/hello_world/train). To take things a step further and to prepare for future assignments, you can open the iPython notebook in that repository via Google Colab and run through the training yourself.
+![Unselected Jupyter code cell](images/jupyter/native-code-unselected-02.png)
 
-If you chose to train your own model in the Colab (which is entirely optional), here are somethings to know:
+When a cell is selected, it can be in two different modes. It can be in command mode or in edit mode. When the cell is in command mode, it can be operated on and accept keyboard commands. When the cell is in edit mode, the cell's contents (code or Markdown) can be modified.
 
-You will need to download the resulting ```models/model.cc``` file from Colab and copy the binary data in that file that encodes the model (which looks something like this: 0x1c, 0x00...) into the ```model.cpp``` file in your PlatformIO project. You also need to copy the model length ```g_model_len``` into the ```model.cpp``` file. Note that these files are not identical and you should only copying the relevant data (the binary data and model length), not other elements, like variable declarations, et cetera. 
+When a cell is in command mode, a solid vertical bar will appear to the left of the cell.
 
-## Troubleshooting
+![Code cell in command mode](images/jupyter/native-code-cells-02.png)
 
-We hope this process has been agreeable, but if you're running into issues, we've compiled a list of common issues with suggested solutions here. Because this is the first hands-on experience, some of these issues are fairly generic and may apply to later assignments. As a final note: if you find an issue that isn't addressed here, please let us know so that we can not only better support you, but also your peers and future students. 
+ When you're in edit mode, the solid vertical bar is joined by a border around the cell editor.
 
-* I'm seeing compliation issues related to the ```Arduino_TensorFlowLite``` library.
-    * Most likely you've forgotton to check the ```Use libraries installed by Arduino IDE``` checkbox during project import (don't worry we can fix that now). Alternatively, the ```platformio.ini``` file may have the wrong value for the Arduino library path ```YOUR_ARDUINO_FOLDER_PATH``` in the line:  ```lib_extra_dirs = YOUR_ARDUINO_FOLDER_PATH/libraries```. PlatformIO assumes it is located at ```Documents/Arduino``` so if yours is located in another place you'll need to update this line. If you didn't click the checkbox that line will be missing. In either case simply add/update that line to the correct value and you should be good to go!
+![Code cell in edit mode](images/jupyter/native-code-cells-04.png)
 
-* I've uploaded code previously, but now my Arduino Nano 33 BLE Sense isn't responding or appearing on any ports.
-    * You can perform a [double tap reset](https://forum.arduino.cc/index.php?topic=648781.0) to step into the bootloader and replace the runaway code.
+To move from edit mode to command mode, press the `kbstyle(Esc)` key. To move from command mode to edit mode, press the `kbstyle(Enter)` key. You can also use the mouse to **change the mode** by clicking the vertical bar to the left of the cell or out of the code/Markdown region in the code cell.
 
-* I'm running ```Ubuntu 18.04``` and I can't seem to access the serial port to upload my code.
-    * You may need to add yourself to the ```dialout``` user group to get access to the serial port. To do that run ```sudo usermod -aG dialout <USER_NAME>``` and then logout and then log back in. Now your user should have the correct permissions.
-    * You may also need to correctly ```chmod``` the serial port. E.g., ```sudo chmod a+rw /dev/ttyACM0```.
-    * You may have the ```modemmanager``` package installed and set to auto-capture all serial devices. This package is used for cellular connections from your laptop. If you are not using your laptop for cellular you can remove the package with ```sudo apt-get purge modemmanager```.
-      
+### Add additional code cells
+
+Code cells can be added to a Notebook using the main toolbar, a cell's add cell toolbar (visible with hover), and through keyboard commands.
+
+![Add code cells](images/jupyter/native-add-cells.png)
+
+ Using the plus icons in the main toolbar and a cell's hover toolbar will add a new cell directly below the currently selected cell.
+
+When a code cell is in command mode, the `kbstyle(A)` key can be used to add a cell above and the `kbstyle(B)` can be used to add a cell below the selected cell.
+
+### Select a code cell
+
+The selected code cell can be changed using the mouse, the up/down arrow keys on the keyboard, and the `kbstyle(J)` (down) and `kbstyle(K)` (up) keys. To use the keyboard, the cell must be in command mode.
+
+### Select multiple code cells
+
+To select multiple cells, start with one cell in selected mode. If you want to select consecutive cells, hold down `kbstyle(Shift)` and click the last cell you want to select. If you want to select any group of cells, hold down `kbstyle(Ctrl)` and click the cells you'd like to add to your selection.
+
+Selected cells will be indicated by the filled background.
+
+![Multiselected cells](images/jupyter/multiselect.png)
+
+### Run a single code cell
+
+Once your code is added, you can run a cell using the **Run** icon to the left of the cell and the output will be displayed below the code cell.
+
+![Run Jupyter code cell](images/jupyter/native-code-run.png)
+
+You can also use keyboard shortcuts to run a selected code cell. `kbstyle(Ctrl+Enter)` runs the currently selected cell, `kbstyle(Shift+Enter)` runs the currently selected cell and inserts a new cell immediately below (focus moves to new cell), and `kbstyle(Alt+Enter)` runs the currently selected cell and inserts a new cell immediately below (focus remains on current cell). These keyboard shortcuts can be used in both command and edit modes.
+
+### Run multiple code cells
+
+Running multiple code cells can be accomplished in many ways. You can use the double arrow in the main toolbar of the Notebook Editor to run all cells within the Notebook or the **Run** icons with directional arrows in the cell toolbar to run all cells above or below the current code cell.
+
+![Run multiple code cells](images/jupyter/native-code-runs.png)
+
+### Move a code cell
+
+Moving cells up or down within a Notebook can be accomplished via dragging and dropping. For code cells, the drag and drop area is to the left of the cell editor as indicated below. For rendered Markdown cells, you may click anywhere to drag and drop cells.
+
+![Move a code cell](images/jupyter/code-move.png)
+
+To move multiple cells, you can use the same drag and drop areas in any cell included in the selection.
+
+You can also use the keyboard shortcuts `kbstyle(Alt+Arrow)` to move one or multiple selected cells.
+
+### Delete a code cell
+
+Deleting a code cell can be accomplished by using the **Delete** icon in the code cell toolbar or through the keyboard shortcut `kbstyle(dd)` when the selected code cell is in command mode.
+
+![Delete a code cell](images/jupyter/native-code-delete.png)
+
+### Undo your last change
+
+You can use the `kbstyle(z)` key to undo your previous change, for example, if you've made an accidental edit, you can undo it to the previous correct state, or if you've deleted a cell accidentally, you can recover it.
+
+### Switch between code and Markdown
+
+The Notebook Editor allows you to easily change code cells between Markdown and code. Clicking the language picker in the bottom right of a cell will allow you to switch between Markdown and, if applicable, any other language supported by the selected kernel.
+
+![Change language](images/jupyter/native-language-picker-01.png)
+
+You can also use the keyboard to change the cell type. When a cell is selected and in command mode, the `kbstyle(M)` key switches the cell type to Markdown and the `kbstyle(Y)` key switches the cell type to code.
+
+Once Markdown is set, you can enter Markdown formatted content to the code cell.
+
+![Raw Markdown displayed in code cell](images/jupyter/native-markdown-not-rendered.png)
+
+To render Markdown cells, you can select the check mark in the cell toolbar, or use the `kbstyle(Ctrl+Enter)` and `kbstyle(Shift+Enter)` keyboard shortcuts.
+
+![How to render Markdown](images/jupyter/native-markdown-htr.png)
+
+![Rendered Markdown displayed in code cell](images/jupyter/native-markdown-rendered.png)
+
+### Clear output or restart/interrupt the kernel
+
+If you'd like to clear all code cell outputs or restart/interrupt the kernel, you can accomplish that using the main Notebook Editor toolbar.
+
+![Notebook Toolbar](images/jupyter/notebook-toolbar.png)
+
+### Enable/disable line numbers
+
+When you are in command mode, you can enable or disable line numbering within a single code cell by using the `kbstyle(L)` key.
+
+![Line numbers enabled in code cell](images/jupyter/cell-toggle-line-num.png)
+
+To toggle line numbering for the entire notebook, use `kbstyle(Shift+L)` when in command mode on any cell.
+
+![Line numbers enabled for notebook](images/jupyter/notebook-toggle-line-num.png)
+
+## Table of Contents
+
+To navigate through your notebook, open the File Explorer in the Activity bar. Then open the **Outline** tab in the Side bar.
+
+![Table of contents](images/jupyter/table-of-contents.png)
+
+> **Note:** By default, the outline will only show Markdown. To show code cells, enable the following setting:  **Notebook > Outline: Show Code Cells**.
+
+## IntelliSense support in the Jupyter Notebook Editor
+
+The Python Jupyter Notebook Editor window has full IntelliSense – code completions, member lists, quick info for methods, and parameter hints. You can be just as productive typing in the Notebook Editor window as you are in the code editor.
+
+![IntelliSense support](images/jupyter/intellisense.png)
+
+## Variable Explorer and Data Viewer
+
+Within a Python Notebook, it's possible to view, inspect, sort, and filter the variables within your current Jupyter session. By selecting the **Variables** icon in the main toolbar after running code and cells, you'll see a list of the current variables, which will automatically update as variables are used in code. The variables pane will open at the bottom of the notebook.
+
+![Variable Explorer](images/jupyter/variable-explorer-01.png)
+
+![Variable Explorer](images/jupyter/variable-explorer-02.png)
+
+For additional information about your variables, you can also double-click on a row or use the **Show variable in data viewer** button next to the variable for a more detailed view of a variable in the Data Viewer. Once open, you can filter the values by searching over the rows.
+
+![Data Viewer](images/jupyter/data-viewer.png)
+
+## Saving plots
+
+To save a plot from your notebook, simply hover over the output and select the **Save** icon in the top right.
+
+![Save output](images/jupyter/save-output.png)
+
+> **Note:** There is support for rendering plots created with [matplotlib](https://matplotlib.org/) and [Altair](https://altair-viz.github.io/index.html).
+
+## Custom notebook diffing
+
+Under the hood, Jupyter Notebooks are JSON files. The segments in a JSON file are rendered as cells that are comprised of three components: input, output, and metadata. Comparing changes made in a notebook using lined-based diffing is difficult and hard to parse. The rich diffing editor for notebooks allows you to easily see changes for each component of a cell.
+
+You can even customize what types of changes you want displayed within your diffing view. In the top right, select the overflow menu item in the toolbar to customize what cell components you want included. Input differences will always be shown.
+
+![Custom notebook diffing](images/jupyter/notebook-diffing.png)
+
+To learn more about Git integration within VS Code, visit [Version Control in VS Code](/docs/editor/versioncontrol.md).
+
+## Debug a Jupyter Notebook
+
+If you need additional debug support in order to diagnose an issue in your code cells, you can export it as a Python file. Once exported as a Python file, the VS Code debugger lets you step through your code, set breakpoints, examine state, and analyze problems. Using the debugger is a helpful way to find and correct issues in notebook code. To debug your Python file:
+
+1. In VS Code, if you haven't already, activate a Python environment in which Jupyter is installed.
+
+1. From your Jupyter Notebook (`.ipynb`), select the **Export** button in the main toolbar.
+
+   ![Convert Jupyter Notebook to Python file](images/jupyter/native-toolbar-export.png)
+
+   Once exported, you'll have a `.py` file with your code that you can use for debugging.
+
+1. After saving the `.py` file, to start the debugger, use one of the following options:
+
+    - For the whole Notebook, open the Command Palette (`kb(workbench.action.showCommands)`) and run the **Python: Debug Current File in Python Interactive Window** command.
+    - For an individual cell, use the **Debug Cell** action that appears above the cell. The debugger specifically starts on the code in that cell. By default, **Debug Cell** steps into user code. If you want to step into non-user code, you need to uncheck **Data Science: Debug Just My Code** in the Python extension settings (`kb(workbench.action.openSettings)`).
+
+1. To familiarize yourself with the general debugging features of VS Code, such as inspecting variables, setting breakpoints, and other activities, review [VS Code debugging](/docs/editor/debugging.md).
+
+1. As you find issues, stop the debugger, correct your code, save the file, and start the debugger again.
+
+1. When you're satisfied that all your code is correct, use the Python Interactive window to export the Python file as a Jupyter Notebook (`.ipynb`).
+
+## Connect to a remote Jupyter server
+
+You can offload intensive computation in a Jupyter Notebook to other computers by connecting to a remote Jupyter server. Once connected, code cells run on the remote server rather than the local computer.
+
+To connect to a remote Jupyter server:
+
+1. Select the **Jupyter Server: local** button in the global Status bar or run the **Jupyter: Specify local or remote Jupyter server for connections** command from the Command Palette (`kb(workbench.action.showCommands)`).
+
+   ![Specify remote Jupyter server](images/jupyter/specify-remote.png)
+
+1. When prompted to **Pick how to connect to Jupyter**, select **Existing: Specify the URI of an existing server**.
+
+   ![Choose to connect to an existing server](images/jupyter/connect-to-existing.png)
+
+1. When prompted to **Enter the URI of a Jupyter server**, provide the server's URI (hostname) with the authentication token included with a `?token=` URL parameter. (If you start the server in the VS Code terminal with an authentication token enabled, the URL with the token typically appears in the terminal output from where you can copy it.) Alternatively, you can specify a username and password after providing the URI.
+
+   ![Prompt to supply a Jupyter server URI](images/jupyter/enter-url-auth-token.png)
+
+> **Note:** For added security, Microsoft recommends configuring your Jupyter server with security precautions such as SSL and token support. This helps ensure that requests sent to the Jupyter server are authenticated and connections to the remote server are encrypted. For guidance about securing a notebook server, refer to the [Jupyter documentation](https://jupyter-notebook.readthedocs.io/en/stable/public_server.html#securing-a-notebook-server).
