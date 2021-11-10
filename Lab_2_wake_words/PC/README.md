@@ -1,5 +1,5 @@
 ## Record training data
-At the beginning you need some data to train your `Wake Word` model. There is already a prerecorded dataset which can be downloaded [here](http://download.tensorflow.org/data/speech_commands_v0.02.tar.gz). Unzip the data and put the different folders you want to use as `Wake Words` into the folder `'data/commands'`. 
+At the beginning you need some data to train your `Wake Word` model. There is already a prerecorded dataset which can be downloaded [http://download.tensorflow.org/data/speech_commands_v0.02.tar.gz](http://download.tensorflow.org/data/speech_commands_v0.02.tar.gz). Unzip the data and put the different folders you want to use as `Wake Words` into the folder `'data/commands'`. 
 
 Otherwise you can record some data for the training of your `Wake Word` model. Therefore you have to execute the `Record_training_data.ipynb`.
 
