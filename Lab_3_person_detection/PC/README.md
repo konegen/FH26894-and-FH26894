@@ -1,3 +1,9 @@
+## Requirements
+All frameworks needed to use this project are located in the requirements.txt file. These can be installed as follows:
+```
+pip install -r requirements.txt
+```
+
 ## Prepare training data
 At the beginning you need to download the COCO dataset and extract the required data from the dataset. For this the script `1_Prepare_training_data.ipynb` is executed.
 
